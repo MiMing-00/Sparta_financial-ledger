@@ -31,10 +31,9 @@ const MonthButton = styled.button`
 `;
 
 const ExpensesByMonth = ({ expenses, setExpenses }) => {
-  const initialMonth =
-    localStorage.getItem("selectedMonth") + 1
-      ? parseInt(localStorage.getItem("selectedMonth"))
-      : 1;
+  const initialMonth = localStorage.getItem("selectedMonth")
+    ? parseInt(localStorage.getItem("selectedMonth")) - 1
+    : 1;
 
   const [activeIndex, setActiveIndex] = useState(initialMonth);
 
@@ -56,7 +55,7 @@ const ExpensesByMonth = ({ expenses, setExpenses }) => {
         {months.map((month, index) => (
           <MonthButton
             key={index}
-            $active={activeIndex === index}
+            $active={activeIndex === index ? true : false}
             onClick={() => handleMonthClick(index)}
           >
             {" "}
@@ -68,9 +67,10 @@ const ExpensesByMonth = ({ expenses, setExpenses }) => {
       <ExpenseRecord />
       {/* 디테일 폼 */}
       <ExpenseDetail
-        expenses={expenses}
+        expenses={expenses.filter(
+          (expense) => parseInt(expense.date.split("-")[1]) === activeIndex + 1
+        )}
         setExpenses={setExpenses}
-        SelectdMonth={activeIndex + 1}
       />
     </>
   );

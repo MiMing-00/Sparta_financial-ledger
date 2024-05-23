@@ -36,26 +36,21 @@ const ExpenseDetailspan1 = styled.span`
   gap: 3px;
 `;
 
-const ExpenseDetail = ({ setExpenses, expenses, SelectdMonth }) => {
-  console.log(SelectdMonth);
+const ExpenseDetail = ({ setExpenses, expenses }) => {
   return (
     <ExpenseDetailContain>
       {/* 여기서 누르면 상세 페이지로 넘어가야 함~~{" "} */}
-      {expenses
-        .filter(
-          (expense) => parseInt(expense.date.split("-")[1]) === SelectdMonth
-        )
-        .map(({ id, date, item, amount, content }) => (
-          <ExpenseDetailDiv1 key={id}>
-            <ExpenseDetailDiv2>
-              <span>{date}</span>
-              <span>
-                {item} - {content}
-              </span>
-            </ExpenseDetailDiv2>
-            <ExpenseDetailspan1>{amount} 원</ExpenseDetailspan1>
-          </ExpenseDetailDiv1>
-        ))}
+      {expenses.map(({ id, date, item, amount, content }) => (
+        <ExpenseDetailDiv1 key={id}>
+          <ExpenseDetailDiv2>
+            <span>{date}</span>
+            <span>
+              {item} - {content}
+            </span>
+          </ExpenseDetailDiv2>
+          <ExpenseDetailspan1>{amount} 원</ExpenseDetailspan1>
+        </ExpenseDetailDiv1>
+      ))}
     </ExpenseDetailContain>
   );
 };
