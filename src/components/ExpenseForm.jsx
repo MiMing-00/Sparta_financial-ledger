@@ -61,13 +61,13 @@ const ExpenseForm = ({ setExpenses }) => {
   return (
     <FormContainer>
       <form onSubmit={onSubmitForm}>
-        날짜
-        <Input type="date" name="date" />
-        항목
+        <label for="date">날짜:</label>
+        <Input type="date" name="date" id="date" />
+        <label for="text">항목:</label>
         <Input type="text" placeholder="지출 항목" name="item" />
-        금액
+        <label for="number">금액:</label>
         <Input type="number" placeholder="지출 금액" name="amount" />
-        내용
+        <label for="text">내용:</label>
         <Input type="text" placeholder="지출 내용" name="content" />
         <FormButton type="submit">저장</FormButton>
       </form>

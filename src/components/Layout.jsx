@@ -2,11 +2,11 @@ import React, { Children } from "react";
 import styled from "styled-components";
 
 const LayoutDisplay1 = styled.div`
-  position: fixed;
   height: 100vh;
   max-width: 1280px;
   background-color: #97da97;
   padding: 2rem;
+  text-align: center;
 `;
 
 const LayoutDisplay2 = styled.div`
