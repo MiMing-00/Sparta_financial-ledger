@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
@@ -29,28 +28,25 @@ const MonthButton = styled.button`
   }
 `;
 
-const ExpensesButton = () => {
-  const [activeIndex, setActiveIndex] = useState("");
-
-  const handleMonthClick = (index) => {
-    setActiveIndex(index);
-  };
-
-  const months = [...Array(12).keys()].map((month) => month + 1);
+const ExpensesButtonContain = ({ activeIndex, handleMonthClick, months }) => {
   return (
-    <ButtonContainer>
-      {months.map((month, index) => (
-        <MonthButton
-          key={index}
-          $active={activeIndex === index}
-          onClick={() => handleMonthClick(index)}
-        >
-          {" "}
-          {month}월{" "}
-        </MonthButton>
-      ))}
-    </ButtonContainer>
+    <>
+      <ButtonContainer>
+        {months.map((month, index) => (
+          <MonthButton
+            key={index}
+            $active={activeIndex === index}
+            onClick={() => handleMonthClick(index)}
+          >
+            {" "}
+            {month}월{" "}
+          </MonthButton>
+        ))}
+      </ButtonContainer>
+      <ExpenseRecord />
+      <ExpenseDetail expenses={expenses} setExpenses={setExpenses} />
+    </>
   );
 };
 
-export default ExpensesButton;
+export default ExpensesButtonContain;
