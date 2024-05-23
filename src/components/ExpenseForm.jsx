@@ -1,4 +1,37 @@
 import React from "react";
+import styled from "styled-components";
+
+const FormContainer = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  border: 1px solid #39e11b;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px 0 20px 0;
+  width: 90%;
+  justify-items: center;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  border: 1px solid #39e11b;
+  margin: 5px;
+  padding: 5px;
+`;
+
+const FormButton = styled.button`
+  background-color: #027d02;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #39e11b;
+    color: white;
+  }
+`;
 
 const ExpenseForm = ({ setExpenses }) => {
   const onSubmitForm = (event) => {
@@ -22,21 +55,22 @@ const ExpenseForm = ({ setExpenses }) => {
     //해당월을 누르면 날짜가 해당월의 1월로 된다. 나중에 구현하기.
     //이거는 expensesbymonth와 연계하기
   };
+  const inputs = ["날짜", "항목", "금약", "내용"];
 
   return (
-    <>
+    <FormContainer>
       <form onSubmit={onSubmitForm}>
         날짜
-        <input type="date" name="date" />
+        <Input type="date" name="date" />
         항목
-        <input type="text" placeholder="지출 항목" name="item" />
+        <Input type="text" placeholder="지출 항목" name="item" />
         금액
-        <input type="number" placeholder="지출 금액" name="amount" />
+        <Input type="number" placeholder="지출 금액" name="amount" />
         내용
-        <input type="text" placeholder="지출 내용" name="content" />
-        <button type="submit">저장</button>
+        <Input type="text" placeholder="지출 내용" name="content" />
+        <FormButton type="submit">저장</FormButton>
       </form>
-    </>
+    </FormContainer>
   );
 };
 
