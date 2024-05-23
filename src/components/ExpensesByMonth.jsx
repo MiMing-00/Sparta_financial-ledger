@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ExpenseRecord from "./ExpenseRecord";
 import ExpenseDetail from "./ExpenseDetail";
@@ -32,7 +31,12 @@ const MonthButton = styled.button`
 `;
 
 const ExpensesByMonth = ({ expenses, setExpenses }) => {
-  const [activeIndex, setActiveIndex] = useState("");
+  const initialMonth =
+    localStorage.getItem("selectedMonth") + 1
+      ? parseInt(localStorage.getItem("selectedMonth"))
+      : 1;
+
+  const [activeIndex, setActiveIndex] = useState(initialMonth);
 
   const handleMonthClick = (index) => {
     setActiveIndex(index);
@@ -40,11 +44,10 @@ const ExpensesByMonth = ({ expenses, setExpenses }) => {
 
   const months = [...Array(12).keys()].map((month) => month + 1);
 
-  // 로컬 스토리지랑 연결
-  // useEffect() => {
-  //   localStorage.setItem("selectedMonth", activeIndex);
-  //   }
-  // }, [activeIndex];
+  // 로컬 스토리지 연동
+  useEffect(() => {
+    localStorage.setItem("selectedMonth", activeIndex + 1);
+  }, [activeIndex]);
 
   return (
     <>
@@ -61,10 +64,14 @@ const ExpensesByMonth = ({ expenses, setExpenses }) => {
           </MonthButton>
         ))}
       </ButtonContainer>
-      {/* 버튼 드릴링 가능하게 레코드 */}
+      {/* 선택사항- 레코드 */}
       <ExpenseRecord />
-      {/* 버튼 드릴링 가능하게 디테일 폼 */}
-      <ExpenseDetail expenses={expenses} setExpenses={setExpenses} />
+      {/* 디테일 폼 */}
+      <ExpenseDetail
+        expenses={expenses}
+        setExpenses={setExpenses}
+        SelectdMonth={activeIndex + 1}
+      />
     </>
   );
 };
