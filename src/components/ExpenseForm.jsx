@@ -4,13 +4,14 @@ import styled from "styled-components";
 const FormContainer = styled.div`
   display: grid;
   grid-gap: 10px;
-  border: 1px solid #39e11b;
+  border: none;
   border-radius: 5px;
   padding: 10px;
-  margin: 20px 0 20px 0;
+  margin: 20px auto;
   width: 90%;
   justify-items: center;
   align-items: center;
+  background-color: white;
 `;
 
 const Input = styled.input`

@@ -3,13 +3,15 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
+  background-color: white;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 10px;
-  border: 1px solid #39e11b;
+  border: none;
   border-radius: 5px;
   padding: 10px;
   width: 90%;
+  margin: 20px auto;
 `;
 
 const MonthButton = styled.button`
