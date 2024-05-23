@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ExpenseDetailContain = styled.div`
@@ -41,15 +42,17 @@ const ExpenseDetail = ({ setExpenses, expenses }) => {
     <ExpenseDetailContain>
       {/* 여기서 누르면 상세 페이지로 넘어가야 함~~{" "} */}
       {expenses.map(({ id, date, item, amount, content }) => (
-        <ExpenseDetailDiv1 key={id}>
-          <ExpenseDetailDiv2>
-            <span>{date}</span>
-            <span>
-              {item} - {content}
-            </span>
-          </ExpenseDetailDiv2>
-          <ExpenseDetailspan1>{amount} 원</ExpenseDetailspan1>
-        </ExpenseDetailDiv1>
+        <Link to={`/expenses/${id}`} key={id}>
+          <ExpenseDetailDiv1>
+            <ExpenseDetailDiv2>
+              <span>{date}</span>
+              <span>
+                {item} - {content}
+              </span>
+            </ExpenseDetailDiv2>
+            <ExpenseDetailspan1>{amount} 원</ExpenseDetailspan1>
+          </ExpenseDetailDiv1>{" "}
+        </Link>
       ))}
     </ExpenseDetailContain>
   );
