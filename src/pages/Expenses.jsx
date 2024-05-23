@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -52,49 +54,118 @@ const Button = styled.button`
   }
 `;
 
-const Expenses = ({ expenses }) => {
+const Expenses = ({ expenses, setExpenses }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
-
   const targetExpense = expenses.find((expense) => expense.id === id);
+
+  // 인풋 박스 수정하는 로직1 useRef로 구현하기...
+  const [formData, setFormData] = useState({
+    id: targetExpense.id,
+    date: targetExpense.date,
+    item: targetExpense.item,
+    amount: targetExpense.amount,
+    content: targetExpense.content,
+  });
+
+  // 인풋 박스 수정하는 로직 1-1
+  const onChangeUpdateForm = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // 인풋 박스 업데이트 하는 로직 setExpenses로 expense를 바꾼 다음에 홈으로 가서 바꾼 거 보여줘야 한다.
+  const onSubmitUpdateForm = (event) => {
+    event.preventDefault();
+
+    // 유효성 검사1
+    if (
+      formData.date == targetExpense.date &&
+      formData.item == targetExpense.item &&
+      formData.amount == targetExpense.amount &&
+      formData.content == targetExpense.content
+    ) {
+      alert("수정된 내용이 없습니다.");
+      return;
+    }
+
+    //유효성 검사2 아 한글 쓰고ㅓ 숫자 쓰고 그런 것도 장ㅂ아야 하는데 ㅜ
+    if (
+      !formData.date ||
+      !formData.item ||
+      !formData.amount ||
+      !formData.content
+    ) {
+      alert("내용을 모두 기재해주세요!");
+      return;
+    }
+
+    setExpenses((prev) => [
+      ...prev.map((expense) => (expense.id === id ? formData : expense)),
+    ]);
+
+    alert("수정되었습니다.");
+
+    //홈으로 가서 보여주기
+    navigate("/");
+  };
+
+  // 삭제 함수
+  const deleteExpense = () => {
+    setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)]);
+
+    alert("삭제되었습니다.");
+
+    //홈으로 가서 보여주기
+    navigate("/");
+  };
 
   return (
     <ExpensesContain>
-      <ExpensesUpdateForm>
+      <ExpensesUpdateForm onSubmit={onSubmitUpdateForm}>
         <label htmlFor="date">날짜:</label>
         <ExpensesUpdateInput
           type="date"
           name="date"
           id="date"
           placeholder="YYYY-MM-DD"
-          value={targetExpense.date}
+          value={formData.date}
+          onChange={onChangeUpdateForm}
         />
         <label htmlFor="text">항목:</label>
         <ExpensesUpdateInput
           type="text"
           placeholder="지출 항목"
           name="item"
-          value={targetExpense.item}
+          value={formData.item}
+          onChange={onChangeUpdateForm}
         />
         <label htmlFor="number">금액:</label>
         <ExpensesUpdateInput
           type="number"
           placeholder="지출 금액"
           name="amount"
-          value={targetExpense.amount}
+          value={formData.amount}
+          onChange={onChangeUpdateForm}
         />
         <label htmlFor="text">내용:</label>
         <ExpensesUpdateInput
           type="text"
           placeholder="지출 내용"
           name="content"
-          value={targetExpense.content}
+          value={formData.content}
+          onChange={onChangeUpdateForm}
         />
         <ButtonCotain>
           <Button type="submit" $backgroundColor="#39e11b">
             수정
           </Button>
-          <Button $backgroundColor="#e53b3b">삭제</Button>
-          <Button $backgroundColor="#0060fac0">뒤로 가기</Button>
+          <Button onClick={deleteExpense} $backgroundColor="#e53b3b">
+            삭제
+          </Button>
+          <Button onClick={() => navigate("/")} $backgroundColor="#0060fac0">
+            뒤로 가기
+          </Button>
         </ButtonCotain>
       </ExpensesUpdateForm>
     </ExpensesContain>

@@ -42,7 +42,11 @@ const ExpenseDetail = ({ setExpenses, expenses }) => {
     <ExpenseDetailContain>
       {/* 여기서 누르면 상세 페이지로 넘어가야 함~~{" "} */}
       {expenses.map(({ id, date, item, amount, content }) => (
-        <Link to={`/expenses/${id}`} key={id}>
+        <Link
+          to={`/expenses/${id}`}
+          key={id}
+          style={{ textDecoration: "none", color: "black" }}
+        >
           <ExpenseDetailDiv1>
             <ExpenseDetailDiv2>
               <span>{date}</span>

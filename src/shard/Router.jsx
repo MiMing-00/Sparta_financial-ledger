@@ -85,7 +85,9 @@ const Router = () => {
             />
             <Route
               path="/expenses/:id"
-              element={<Expenses expenses={expenses} />}
+              element={
+                <Expenses expenses={expenses} setExpenses={setExpenses} />
+              }
             />
           </Routes>
         </Layout>
