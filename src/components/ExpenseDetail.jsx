@@ -15,22 +15,39 @@ const ExpenseDetailDiv1 = styled.div`
   width: 90%;
   margin: 20px auto;
   padding: 10px;
-  border: 1px solid;
+  border: 1px solid #97da97;
   border-radius: 5px;
+`;
+
+const ExpenseDetailDiv2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: flex-start;
+  text-overflow: ellipsis;
+  margin: 2px;
+  gap: 10px;
+`;
+
+const ExpenseDetailspan1 = styled.span`
+  justify-content: flex-end;
+  margin: auto;
+  gap: 3px;
 `;
 
 const ExpenseDetail = ({ setExpenses, expenses }) => {
   return (
     <ExpenseDetailContain>
       {/* 여기서 누르면 상세 페이지로 넘어가야 함~~{" "} */}
-      {/* 필터 써서 해당 월만 보이게 해야 하네 그 전에 필터로 넘겨줘도 될 듯 근데 해당 월인 거 어캐 알지 */}
-      {expenses.map(({ id, date, item, amount, contect }) => (
+      {expenses.map(({ id, date, item, amount, content }) => (
         <ExpenseDetailDiv1 key={id}>
-          <p>{date}</p>
-          <p>
-            {item} - {contect}
-          </p>
-          <p>{amount}</p>
+          <ExpenseDetailDiv2>
+            <span>{date}</span>
+            <span>
+              {item} - {content}
+            </span>
+          </ExpenseDetailDiv2>
+          <ExpenseDetailspan1>{amount} 원</ExpenseDetailspan1>
         </ExpenseDetailDiv1>
       ))}
     </ExpenseDetailContain>
