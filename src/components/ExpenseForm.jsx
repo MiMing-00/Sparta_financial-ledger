@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 
 const FormContainer = styled.div`
   display: grid;
@@ -49,14 +50,13 @@ const ExpenseForm = ({ setExpenses }) => {
       return;
     }
 
-    setExpenses((prev) => [...prev, { date, item, amount, content }]);
+    setExpenses((prev) => [
+      ...prev,
+      { id: uuidv4(), date, item, amount, content },
+    ]);
 
     event.target.reset();
-
-    //해당월을 누르면 날짜가 해당월의 1월로 된다. 나중에 구현하기.
-    //이거는 expensesbymonth와 연계하기
   };
-  // const inputs = ["날짜", "항목", "금약", "내용"];
 
   return (
     <FormContainer>
