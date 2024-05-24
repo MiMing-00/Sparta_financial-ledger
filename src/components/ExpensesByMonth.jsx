@@ -33,30 +33,29 @@ const MonthButton = styled.button`
   }
 `;
 
+const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
 const ExpensesByMonth = () => {
-  // 여기 expenses 있는 거는 그냥 드릴링인가?
-  const { activeIndex, setActiveIndex } = useContext(ExpenseContext);
+  const { activeMonth, setActiveMonth } = useContext(ExpenseContext);
 
-  const handleMonthClick = (index) => {
-    setActiveIndex(index);
+  const handleMonthClick = (month) => {
+    setActiveMonth(month);
   };
-
-  const months = [...Array(12).keys()].map((month) => month + 1);
 
   // 로컬 스토리지 연동
   useEffect(() => {
-    localStorage.setItem("selectedMonth", activeIndex + 1);
-  }, [activeIndex]);
+    localStorage.setItem("selectedMonth", activeMonth);
+  }, [activeMonth]);
 
   return (
     <>
       {/* 12월 버튼 */}
       <ButtonContainer>
-        {months.map((month, index) => (
+        {MONTHS.map((month) => (
           <MonthButton
-            key={index}
-            $active={activeIndex === index ? true : false}
-            onClick={() => handleMonthClick(index)}
+            key={month}
+            $active={activeMonth === month ? true : false}
+            onClick={() => handleMonthClick(month)}
           >
             {" "}
             {month}월{" "}
