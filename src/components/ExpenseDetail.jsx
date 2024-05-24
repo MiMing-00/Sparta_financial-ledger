@@ -37,14 +37,21 @@ const ExpenseDetailDiv2 = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
+  min-width: 0;
   align-items: flex-start;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   margin: 2px;
   gap: 10px;
+  overflow: hidden;
 `;
 
 const ExpenseDetailspan1 = styled.span`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; // 자동 줄바꿈 방지
+  max-width: 100%;
+`;
+
+const ExpenseDetailspan2 = styled.span`
   justify-content: flex-end;
   margin: auto;
   gap: 3px;
@@ -69,11 +76,11 @@ const ExpenseDetail = () => {
           <ExpenseDetailDiv1>
             <ExpenseDetailDiv2>
               <span>{date}</span>
-              <span>
+              <ExpenseDetailspan1>
                 {item} - {content}
-              </span>
+              </ExpenseDetailspan1>
             </ExpenseDetailDiv2>
-            <ExpenseDetailspan1>{amount} 원</ExpenseDetailspan1>
+            <ExpenseDetailspan2>{amount} 원</ExpenseDetailspan2>
           </ExpenseDetailDiv1>{" "}
         </Link>
       ))}
