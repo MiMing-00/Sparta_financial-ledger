@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ExpenseRecord from "./ExpenseRecord";
 import ExpenseDetail from "./ExpenseDetail";
+import { useContext } from "react";
+import { ExpenseContext } from "../context/ExpenseContext";
 
 const ButtonContainer = styled.div`
   background-color: white;
@@ -31,12 +33,9 @@ const MonthButton = styled.button`
   }
 `;
 
-const ExpensesByMonth = ({ expenses, setExpenses }) => {
-  const initialMonth = localStorage.getItem("selectedMonth")
-    ? parseInt(localStorage.getItem("selectedMonth")) - 1
-    : 1;
-
-  const [activeIndex, setActiveIndex] = useState(initialMonth);
+const ExpensesByMonth = () => {
+  // 여기 expenses 있는 거는 그냥 드릴링인가?
+  const { activeIndex, setActiveIndex } = useContext(ExpenseContext);
 
   const handleMonthClick = (index) => {
     setActiveIndex(index);
@@ -67,11 +66,7 @@ const ExpensesByMonth = ({ expenses, setExpenses }) => {
       {/* 선택사항- 레코드 */}
       <ExpenseRecord />
       {/* 디테일 폼 */}
-      <ExpenseDetail
-        expenses={expenses.filter(
-          (expense) => parseInt(expense.date.split("-")[1]) === activeIndex + 1
-        )}
-      />
+      <ExpenseDetail />
     </>
   );
 };

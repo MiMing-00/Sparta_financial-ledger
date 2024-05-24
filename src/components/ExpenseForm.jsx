@@ -1,6 +1,8 @@
 import React from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import { ExpenseContext } from "../context/ExpenseContext.jsx";
 
 const FormContainer = styled.div`
   display: grid;
@@ -36,7 +38,9 @@ const FormButton = styled.button`
   }
 `;
 
-const ExpenseForm = ({ setExpenses }) => {
+const ExpenseForm = () => {
+  const { setExpenses } = useContext(ExpenseContext);
+
   const onSubmitForm = (event) => {
     event.preventDefault();
 

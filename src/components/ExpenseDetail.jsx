@@ -1,6 +1,8 @@
 import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ExpenseContext } from "../context/ExpenseContext";
 
 const ExpenseDetailContain = styled.div`
   background-color: white;
@@ -48,11 +50,17 @@ const ExpenseDetailspan1 = styled.span`
   gap: 3px;
 `;
 
-const ExpenseDetail = ({ expenses }) => {
+const ExpenseDetail = () => {
+  const { expenses, activeIndex } = useContext(ExpenseContext);
+
+  const filteredExpenses = expenses.filter(
+    (expense) => parseInt(expense.date.split("-")[1]) === activeIndex + 1
+  );
+
   return (
     <ExpenseDetailContain>
       {/* 여기서 누르면 상세 페이지로 넘어가야 함~~{" "} */}
-      {expenses.map(({ id, date, item, amount, content }) => (
+      {filteredExpenses.map(({ id, date, item, amount, content }) => (
         <Link
           to={`/expenses/${id}`}
           key={id}

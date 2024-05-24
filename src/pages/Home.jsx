@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import ExpenseForm from "../components/ExpenseForm";
 import ExpensesByMonth from "../components/ExpensesByMonth";
-import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
-const Home = ({ expenses, setExpenses }) => {
+const H1 = styled.h1`
+  font-weight: 900;
+  align-items: center;
+  text-align: center;
+`;
+
+const Home = () => {
   return (
     <>
-      <h1>ㄱ ㅏ ㄱ ㅖ ㅂ ㅜ</h1>
-      <ExpenseForm setExpenses={setExpenses} />
-      <ExpensesByMonth expenses={expenses} setExpenses={setExpenses} />
+      <H1>🧮 가계부 🧮</H1>
+      <ExpenseForm />
+      <ExpensesByMonth />
     </>
   );
 };

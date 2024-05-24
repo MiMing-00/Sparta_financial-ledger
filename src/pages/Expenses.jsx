@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const ExpensesContain = styled.div`
@@ -55,9 +54,11 @@ const Button = styled.button`
   }
 `;
 
-const Expenses = ({ expenses, setExpenses }) => {
-  const navigate = useNavigate();
+const Expenses = () => {
+  const { expenses, setExpenses } = useContext(ExpenseContext);
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const targetExpense = expenses.find((expense) => expense.id === id);
 
   // 인풋 박스 수정하는 로직1 useRef로 구현하기...
