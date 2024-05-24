@@ -62,6 +62,9 @@ const Expenses = () => {
 
   const targetExpense = expenses.find((expense) => expense.id === id);
 
+  console.log(expenses);
+  console.log(targetExpense);
+
   // 인풋 박스 수정하는 로직1 useRef로 구현하기...
   const [formData, setFormData] = useState({
     id: targetExpense.id,

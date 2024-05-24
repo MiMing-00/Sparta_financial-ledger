@@ -3,6 +3,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import { ExpenseContext } from "../context/ExpenseContext.jsx";
+import Swal from "sweetalert2";
 
 const FormContainer = styled.div`
   display: grid;
@@ -51,7 +52,10 @@ const ExpenseForm = () => {
     const content = formData.get("content");
 
     if (!date || !item || !amount || !content) {
-      alert("내용을 입력해주세요!");
+      Swal.fire({
+        title: "내용을 입력해주세요!",
+        text: "각 항목에 맞는 내용을 기입해주세요.",
+      });
       return;
     }
 

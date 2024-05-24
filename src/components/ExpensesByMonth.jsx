@@ -18,7 +18,7 @@ const ButtonContainer = styled.div`
 `;
 
 const MonthButton = styled.button`
-  background-color: ${(props) => (props.$active ? "#39e11b" : "#027d02")};
+  background-color: ${(props) => (props.$active ? "#027d02" : "#39e11b")};
   color: ${(props) => (props.$active ? "white" : "black")};
   border: none;
   border-radius: 5px;
@@ -28,12 +28,14 @@ const MonthButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => (props.$active ? "#027d02" : "#39e11b")};
-    color: ${(props) => (props.$active ? "black" : "white")};
+    background-color: ${(props) => (props.$active ? "#027d02" : "darkgray")};
+    color: ${(props) => (props.$active ? "white" : "black")};
   }
 `;
 
 const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+// const months = [...Array(12).keys()].map((month) => month + 1);
 
 const ExpensesByMonth = () => {
   const { activeMonth, setActiveMonth } = useContext(ExpenseContext);
