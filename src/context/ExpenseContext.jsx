@@ -73,6 +73,7 @@ const initialMonth = localStorage.getItem("selectedMonth")
   : 1;
 
 export const ExpenseContext = createContext();
+
 export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState(init);
   const [activeIndex, setActiveIndex] = useState(initialMonth);

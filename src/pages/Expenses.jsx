@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ExpenseContext } from "../context/ExpenseContext";
 import styled from "styled-components";
 
 const ExpensesContain = styled.div`
@@ -102,29 +103,28 @@ const Expenses = () => {
       return;
     }
 
-    setExpenses((prev) => [
-      ...prev.map((expense) => (expense.id === id ? formData : expense)),
-    ]);
-
-    alert("수정되었습니다.");
-
-    //홈으로 가서 보여주기
-    navigate("/");
+    setExpenses(
+      (prev) => prev.map((expense) => (expense.id === id ? formData : expense)),
+      () => {
+        alert("수정되었습니다.");
+        navigate("/");
+      }
+    );
   };
-
   // 삭제 함수
   const deleteExpense = () => {
-    setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)]);
-
-    alert("삭제되었습니다.");
-
-    //홈으로 가서 보여주기
-    navigate("/");
+    if (confirm("정말로 삭제하시겠습니까?")) {
+      setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)]);
+      alert("삭제되었습니다.");
+      navigate("/");
+    } else {
+      alert("삭제가 취소되었습니다.");
+    }
   };
 
   return (
     <ExpensesContain>
-      <ExpensesUpdateForm onSubmit={onSubmitUpdateForm}>
+      <ExpensesUpdateForm>
         <label htmlFor="date">날짜:</label>
         <ExpensesUpdateInput
           type="date"
@@ -159,7 +159,7 @@ const Expenses = () => {
           onChange={onChangeUpdateForm}
         />
         <ButtonCotain>
-          <Button type="submit" $backgroundColor="#39e11b">
+          <Button onClick={onSubmitUpdateForm} $backgroundColor="#39e11b">
             수정
           </Button>
           <Button onClick={deleteExpense} $backgroundColor="#e53b3b">
