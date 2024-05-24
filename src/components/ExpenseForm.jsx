@@ -27,6 +27,7 @@ const FormButton = styled.button`
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
+  box-shadow: 2px 2px 2px 2px #555555;
   cursor: pointer;
 
   &:hover {

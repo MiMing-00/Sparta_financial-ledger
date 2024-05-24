@@ -48,6 +48,7 @@ const Button = styled.button`
   padding: 10px;
   cursor: pointer;
   width: 100px;
+  box-shadow: 2px 2px 2px 2px #555555;
 
   &:hover {
     color: white;

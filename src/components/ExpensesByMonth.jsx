@@ -22,6 +22,7 @@ const MonthButton = styled.button`
   border-radius: 5px;
   padding: 20px;
   margin: 10px;
+  box-shadow: 2px 2px 2px 2px #555555;
   cursor: pointer;
 
   &:hover {
@@ -70,7 +71,6 @@ const ExpensesByMonth = ({ expenses, setExpenses }) => {
         expenses={expenses.filter(
           (expense) => parseInt(expense.date.split("-")[1]) === activeIndex + 1
         )}
-        setExpenses={setExpenses}
       />
     </>
   );

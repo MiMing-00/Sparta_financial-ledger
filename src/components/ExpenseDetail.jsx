@@ -18,6 +18,17 @@ const ExpenseDetailDiv1 = styled.div`
   padding: 10px;
   border: 1px solid #97da97;
   border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgba(78, 120, 97, 0.3);
+
+  &:hover {
+    box-shadow: 4px 4px 15px 5px rgba(98, 134, 115, 0.3);
+    transform: translateY(-0.25rem);
+    transition: transform 0.2s ease-in-out;
+  }
+  & {
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+  }
 `;
 
 const ExpenseDetailDiv2 = styled.div`
@@ -37,7 +48,7 @@ const ExpenseDetailspan1 = styled.span`
   gap: 3px;
 `;
 
-const ExpenseDetail = ({ setExpenses, expenses }) => {
+const ExpenseDetail = ({ expenses }) => {
   return (
     <ExpenseDetailContain>
       {/* 여기서 누르면 상세 페이지로 넘어가야 함~~{" "} */}
