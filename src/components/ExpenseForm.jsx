@@ -1,8 +1,8 @@
 import React from "react";
-import { useContext } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import { ExpenseContext } from "../context/ExpenseContext.jsx";
+import { useDispatch } from "react-redux";
+import { onSubmitExpense } from "../redux/slices/ExpenseSlice";
 
 const FormContainer = styled.div`
   display: grid;
@@ -39,7 +39,7 @@ const FormButton = styled.button`
 `;
 
 const ExpenseForm = () => {
-  const { setExpenses } = useContext(ExpenseContext);
+  const dispatch = useDispatch();
 
   const onSubmitForm = (event) => {
     event.preventDefault();
@@ -55,10 +55,7 @@ const ExpenseForm = () => {
       return;
     }
 
-    setExpenses((prev) => [
-      ...prev,
-      { id: uuidv4(), date, item, amount, content },
-    ]);
+    dispatch(onSubmitExpense({ id: uuidv4(), date, item, amount, content }));
 
     event.target.reset();
   };

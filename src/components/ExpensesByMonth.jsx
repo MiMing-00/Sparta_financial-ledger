@@ -34,7 +34,6 @@ const MonthButton = styled.button`
 `;
 
 const ExpensesByMonth = () => {
-  // 여기 expenses 있는 거는 그냥 드릴링인가?
   const { activeIndex, setActiveIndex } = useContext(ExpenseContext);
 
   const handleMonthClick = (index) => {

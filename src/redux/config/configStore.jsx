@@ -5,6 +5,7 @@ import React from "react";
 const store = configureStore({
   reducer: {
     expense: expenseSlice,
+    // 다른 슬라이스가 있으면 추가하기
   },
 });
 

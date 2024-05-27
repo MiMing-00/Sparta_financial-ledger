@@ -67,6 +67,7 @@ const init = [
       "자율주행차량 운전주행모드 자동 전환용 인식률 90% 이상의 다중 센서 기반 운전자 상태 인식 및 상황 인식 원천 기술 개발",
   },
 ];
+
 //activeIndex초기배열
 const initialMonth = localStorage.getItem("selectedMonth")
   ? parseInt(localStorage.getItem("selectedMonth")) - 1
