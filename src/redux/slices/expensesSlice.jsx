@@ -68,20 +68,30 @@ const initialExpenses = [
   },
 ];
 
-// const [expenses, setExpenses] = useState(initialExpenses);
-
 //슬라이스 안에 객체
 const expensesSlice = createSlice({
   name: "expenses",
   initialState: initialExpenses,
   reducers: {
     //이용한 함수
-    setExpenses: (state, action) => {
+    addExpenses: (state, action) => {
       state.push(action.payload);
     },
   },
 });
 
+// const deleteExpense = () => {
+//   if (confirm("정말로 삭제하시겠습니까?")) {
+//     dispath(
+//       setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)])
+//     );
+//     alert("삭제되었습니다.");
+//     navigate("/");
+//   } else {
+//     alert("삭제가 취소되었습니다.");
+//   }
+// };
+
 //이용한 함수
-export const { onSubmitExpense } = expensesSlice.actions;
+export const { addExpenses } = expensesSlice.actions;
 export default expensesSlice.reducer;

@@ -2,8 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { setExpenses } from "../redux/slices/expenseSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const ExpensesContain = styled.div`
   background-color: white;
@@ -57,9 +56,7 @@ const Button = styled.button`
 `;
 
 const Expenses = () => {
-  // const { expenses, setExpenses } = useContext(ExpenseContext);
-
-  const expenses = useContext((state) => state.expenses);
+  const expenses = useSelector((state) => state.expenses);
   const dispath = useDispatch();
 
   const { id } = useParams();
@@ -76,49 +73,49 @@ const Expenses = () => {
     content: targetExpense.content,
   });
 
-  // 인풋 박스 수정하는 로직 1-1
-  const onChangeUpdateForm = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // // 인풋 박스 수정하는 로직 1-1
+  // const onChangeUpdateForm = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
-  // 인풋 박스 업데이트 하는 로직 setExpenses로 expense를 바꾼 다음에 홈으로 가서 바꾼 거 보여줘야 한다.
-  const onSubmitUpdateForm = (event) => {
-    event.preventDefault();
+  // // 인풋 박스 업데이트 하는 로직 setExpenses로 expense를 바꾼 다음에 홈으로 가서 바꾼 거 보여줘야 한다.
+  // const onSubmitUpdateForm = (event) => {
+  //   event.preventDefault();
 
-    // 유효성 검사1
-    if (
-      formData.date == targetExpense.date &&
-      formData.item == targetExpense.item &&
-      formData.amount == targetExpense.amount &&
-      formData.content == targetExpense.content
-    ) {
-      alert("수정된 내용이 없습니다.");
-      return;
-    }
+  //   // 유효성 검사1
+  //   if (
+  //     formData.date == targetExpense.date &&
+  //     formData.item == targetExpense.item &&
+  //     formData.amount == targetExpense.amount &&
+  //     formData.content == targetExpense.content
+  //   ) {
+  //     alert("수정된 내용이 없습니다.");
+  //     return;
+  //   }
 
-    //유효성 검사2 아 한글 쓰고ㅓ 숫자 쓰고 그런 것도 장ㅂ아야 하는데 ㅜ
-    if (
-      !formData.date ||
-      !formData.item ||
-      !formData.amount ||
-      !formData.content
-    ) {
-      alert("내용을 모두 기재해주세요!");
-      return;
-    }
+  //   //유효성 검사2 아 한글 쓰고ㅓ 숫자 쓰고 그런 것도 장ㅂ아야 하는데 ㅜ
+  //   if (
+  //     !formData.date ||
+  //     !formData.item ||
+  //     !formData.amount ||
+  //     !formData.content
+  //   ) {
+  //     alert("내용을 모두 기재해주세요!");
+  //     return;
+  //   }
 
-    dispath(
-      setExpenses(
-        (prev) =>
-          prev.map((expense) => (expense.id === id ? formData : expense)),
-        () => {
-          alert("수정되었습니다.");
-          navigate("/");
-        }
-      )
-    );
-  };
+  //   dispath(
+  //     setExpenses(
+  //       (prev) =>
+  //         prev.map((expense) => (expense.id === id ? formData : expense)),
+  //       () => {
+  //         alert("수정되었습니다.");
+  //         navigate("/");
+  //       }
+  //     )
+  //   );
+  // };
   // 삭제 함수
   const deleteExpense = () => {
     if (confirm("정말로 삭제하시겠습니까?")) {

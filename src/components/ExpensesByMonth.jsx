@@ -37,7 +37,6 @@ const MonthButton = styled.button`
 const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const ExpensesByMonth = () => {
-  // const { activeMonth, setActiveMonth } = useContext(ExpenseContext);
   const activeMonth = useSelector((state) => state.activeMonth);
   const dispath = useDispatch();
 
@@ -65,8 +64,8 @@ const ExpensesByMonth = () => {
           </MonthButton>
         ))}
       </ButtonContainer>
-      {/* 선택사항- 레코드 */}
-      <ExpenseRecord />
+      {/* 선택사항- 레코드
+      <ExpenseRecord /> */}
       {/* 디테일 폼 */}
       <ExpenseDetail />
     </>

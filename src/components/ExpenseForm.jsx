@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { setExpenses } from "../redux/slices/expenseSlice";
+import { addExpenses } from "../redux/slices/expensesSlice";
 
 const FormContainer = styled.div`
   display: grid;
@@ -55,7 +55,7 @@ const ExpenseForm = () => {
       return;
     }
 
-    dispatch(setExpenses({ id: uuidv4(), date, item, amount, content }));
+    dispatch(addExpenses({ id: uuidv4(), date, item, amount, content }));
 
     event.target.reset();
   };
