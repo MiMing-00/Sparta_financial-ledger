@@ -56,6 +56,7 @@ const ExpenseForm = () => {
     }
 
     dispatch(addExpenses({ id: uuidv4(), date, item, amount, content }));
+    alert("저장되었습니다.");
 
     event.target.reset();
   };

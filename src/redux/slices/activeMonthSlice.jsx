@@ -6,7 +6,7 @@ const initialMonth = localStorage.getItem("selectedMonth")
 
 const activeMonthSlice = createSlice({
   name: "activeMonth",
-  initialState: { activeMonth: initialMonth },
+  initialState: initialMonth,
   reducers: {
     setActiveMonth: (state, action) => {
       return action.payload;

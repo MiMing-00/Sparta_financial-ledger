@@ -77,21 +77,22 @@ const expensesSlice = createSlice({
     addExpenses: (state, action) => {
       state.push(action.payload);
     },
+    updateExpenses: (state, action) => {
+      const nextExpense = action.payload;
+      const index = state.findIndex((item) => item.id === nextExpense.id);
+      //인덱스 찾았음
+      if (index !== -1) {
+        state[index] = nextExpense;
+      }
+    },
+    removeExpense: (state, action) => {
+      const id = action.payload;
+      return state.filter((item) => item.id !== id);
+    },
   },
 });
 
-// const deleteExpense = () => {
-//   if (confirm("정말로 삭제하시겠습니까?")) {
-//     dispath(
-//       setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)])
-//     );
-//     alert("삭제되었습니다.");
-//     navigate("/");
-//   } else {
-//     alert("삭제가 취소되었습니다.");
-//   }
-// };
-
 //이용한 함수
-export const { addExpenses } = expensesSlice.actions;
+export const { addExpenses, removeExpense, updateExpenses } =
+  expensesSlice.actions;
 export default expensesSlice.reducer;

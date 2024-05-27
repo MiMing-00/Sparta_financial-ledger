@@ -29,8 +29,8 @@ const MonthButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => (props.$active ? "#027d02" : "#39e11b")};
-    color: ${(props) => (props.$active ? "black" : "white")};
+    background-color: ${(props) => (props.$active ? "#39e11b" : "#639a63")};
+    color: ${(props) => (props.$active ? "white" : "black")};
   }
 `;
 

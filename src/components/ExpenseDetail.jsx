@@ -50,8 +50,6 @@ const ExpenseDetailspan1 = styled.span`
 `;
 
 const ExpenseDetail = () => {
-  // const { expenses, activeMonth } = useContext(ExpenseContext);
-
   const expenses = useSelector((state) => state.expenses);
   const activeMonth = useSelector((state) => state.activeMonth);
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { removeExpense, updateExpenses } from "../redux/slices/expensesSlice";
 
 const ExpensesContain = styled.div`
   background-color: white;
@@ -73,55 +74,48 @@ const Expenses = () => {
     content: targetExpense.content,
   });
 
-  // // 인풋 박스 수정하는 로직 1-1
-  // const onChangeUpdateForm = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prev) => ({ ...prev, [name]: value }));
-  // };
+  // 인풋 박스 수정하는 로직 1-1
+  const onChangeUpdateForm = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  // // 인풋 박스 업데이트 하는 로직 setExpenses로 expense를 바꾼 다음에 홈으로 가서 바꾼 거 보여줘야 한다.
-  // const onSubmitUpdateForm = (event) => {
-  //   event.preventDefault();
+  // 인풋 박스 업데이트 하는 로직
+  // setExpenses로 expense를 바꾼 다음에 홈으로 가서 바꾼 거 보여줘야 한다.
+  const onSubmitUpdateForm = (event) => {
+    event.preventDefault();
 
-  //   // 유효성 검사1
-  //   if (
-  //     formData.date == targetExpense.date &&
-  //     formData.item == targetExpense.item &&
-  //     formData.amount == targetExpense.amount &&
-  //     formData.content == targetExpense.content
-  //   ) {
-  //     alert("수정된 내용이 없습니다.");
-  //     return;
-  //   }
+    // 유효성 검사1
+    if (
+      formData.date == targetExpense.date &&
+      formData.item == targetExpense.item &&
+      formData.amount == targetExpense.amount &&
+      formData.content == targetExpense.content
+    ) {
+      alert("수정된 내용이 없습니다.");
+      return;
+    }
 
-  //   //유효성 검사2 아 한글 쓰고ㅓ 숫자 쓰고 그런 것도 장ㅂ아야 하는데 ㅜ
-  //   if (
-  //     !formData.date ||
-  //     !formData.item ||
-  //     !formData.amount ||
-  //     !formData.content
-  //   ) {
-  //     alert("내용을 모두 기재해주세요!");
-  //     return;
-  //   }
+    //유효성 검사2 아 한글 쓰고ㅓ 숫자 쓰고 그런 것도 장ㅂ아야 하는데 ㅜ
+    if (
+      !formData.date ||
+      !formData.item ||
+      !formData.amount ||
+      !formData.content
+    ) {
+      alert("내용을 모두 기재해주세요!");
+      return;
+    }
 
-  //   dispath(
-  //     setExpenses(
-  //       (prev) =>
-  //         prev.map((expense) => (expense.id === id ? formData : expense)),
-  //       () => {
-  //         alert("수정되었습니다.");
-  //         navigate("/");
-  //       }
-  //     )
-  //   );
-  // };
+    dispath(updateExpenses(formData));
+    alert("수정되었습니다.");
+    navigate("/");
+  };
+
   // 삭제 함수
-  const deleteExpense = () => {
+  const deleteExpense = (id) => {
     if (confirm("정말로 삭제하시겠습니까?")) {
-      dispath(
-        setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)])
-      );
+      dispath(removeExpense(id));
       alert("삭제되었습니다.");
       navigate("/");
     } else {
@@ -131,7 +125,7 @@ const Expenses = () => {
 
   return (
     <ExpensesContain>
-      <ExpensesUpdateForm>
+      <ExpensesUpdateForm onSubmit={onSubmitUpdateForm}>
         <label htmlFor="date">날짜:</label>
         <ExpensesUpdateInput
           type="date"
@@ -166,10 +160,10 @@ const Expenses = () => {
           onChange={onChangeUpdateForm}
         />
         <ButtonCotain>
-          <Button onClick={onSubmitUpdateForm} $backgroundColor="#39e11b">
+          <Button type="submit" $backgroundColor="#39e11b">
             수정
           </Button>
-          <Button onClick={deleteExpense} $backgroundColor="#e53b3b">
+          <Button onClick={() => deleteExpense(id)} $backgroundColor="#e53b3b">
             삭제
           </Button>
           <Button onClick={() => navigate("/")} $backgroundColor="#0060fac0">
@@ -180,5 +174,4 @@ const Expenses = () => {
     </ExpensesContain>
   );
 };
-
 export default Expenses;
