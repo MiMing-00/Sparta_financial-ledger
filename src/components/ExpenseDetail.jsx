@@ -1,8 +1,7 @@
 import React from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useSelector } from "react-redux";
 
 const ExpenseDetailContain = styled.div`
   background-color: white;
@@ -51,7 +50,10 @@ const ExpenseDetailspan1 = styled.span`
 `;
 
 const ExpenseDetail = () => {
-  const { expenses, activeMonth } = useContext(ExpenseContext);
+  // const { expenses, activeMonth } = useContext(ExpenseContext);
+
+  const expenses = useSelector((state) => state.expenses);
+  const activeMonth = useSelector((state) => state.activeMonth);
 
   const filteredExpenses = expenses.filter(
     (expense) => parseInt(expense.date.split("-")[1]) === activeMonth

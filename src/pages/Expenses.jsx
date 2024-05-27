@@ -1,8 +1,9 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ExpenseContext } from "../context/ExpenseContext";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { setExpenses } from "../redux/slices/expenseSlice";
 
 const ExpensesContain = styled.div`
   background-color: white;
@@ -56,7 +57,11 @@ const Button = styled.button`
 `;
 
 const Expenses = () => {
-  const { expenses, setExpenses } = useContext(ExpenseContext);
+  // const { expenses, setExpenses } = useContext(ExpenseContext);
+
+  const expenses = useContext((state) => state.expenses);
+  const dispath = useDispatch();
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -103,18 +108,23 @@ const Expenses = () => {
       return;
     }
 
-    setExpenses(
-      (prev) => prev.map((expense) => (expense.id === id ? formData : expense)),
-      () => {
-        alert("수정되었습니다.");
-        navigate("/");
-      }
+    dispath(
+      setExpenses(
+        (prev) =>
+          prev.map((expense) => (expense.id === id ? formData : expense)),
+        () => {
+          alert("수정되었습니다.");
+          navigate("/");
+        }
+      )
     );
   };
   // 삭제 함수
   const deleteExpense = () => {
     if (confirm("정말로 삭제하시겠습니까?")) {
-      setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)]);
+      dispath(
+        setExpenses((prev) => [...prev.filter((expense) => expense.id !== id)])
+      );
       alert("삭제되었습니다.");
       navigate("/");
     } else {
