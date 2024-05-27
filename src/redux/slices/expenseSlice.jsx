@@ -68,7 +68,7 @@ const initialExpenses = [
   },
 ];
 
-const [expenses, setExpenses] = useState(initialExpenses);
+// const [expenses, setExpenses] = useState(initialExpenses);
 
 //슬라이스 안에 객체
 const expensesSlice = createSlice({
@@ -76,7 +76,7 @@ const expensesSlice = createSlice({
   initialState: initialExpenses,
   reducers: {
     //이용한 함수
-    onSubmitExpense: (state, action) => {
+    setExpenses: (state, action) => {
       state.push(action.payload);
     },
   },

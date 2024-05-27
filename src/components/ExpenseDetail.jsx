@@ -51,10 +51,10 @@ const ExpenseDetailspan1 = styled.span`
 `;
 
 const ExpenseDetail = () => {
-  const { expenses, activeIndex } = useContext(ExpenseContext);
+  const { expenses, activeMonth } = useContext(ExpenseContext);
 
   const filteredExpenses = expenses.filter(
-    (expense) => parseInt(expense.date.split("-")[1]) === activeIndex + 1
+    (expense) => parseInt(expense.date.split("-")[1]) === activeMonth
   );
 
   return (

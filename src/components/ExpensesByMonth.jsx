@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ExpenseRecord from "./ExpenseRecord";
 import ExpenseDetail from "./ExpenseDetail";
-import { useContext } from "react";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setActiveMonth } from "../redux/slices/activeMonthSlice";
 
 const ButtonContainer = styled.div`
   background-color: white;
@@ -33,29 +34,31 @@ const MonthButton = styled.button`
   }
 `;
 
+const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
 const ExpensesByMonth = () => {
-  const { activeIndex, setActiveIndex } = useContext(ExpenseContext);
+  // const { activeMonth, setActiveMonth } = useContext(ExpenseContext);
+  const activeMonth = useSelector((state) => state.activeMonth);
+  const dispath = useDispatch();
 
-  const handleMonthClick = (index) => {
-    setActiveIndex(index);
+  const handleMonthClick = (month) => {
+    dispath(setActiveMonth(month));
   };
-
-  const months = [...Array(12).keys()].map((month) => month + 1);
 
   // 로컬 스토리지 연동
   useEffect(() => {
-    localStorage.setItem("selectedMonth", activeIndex + 1);
-  }, [activeIndex]);
+    localStorage.setItem("selectedMonth", activeMonth);
+  }, [activeMonth]);
 
   return (
     <>
       {/* 12월 버튼 */}
       <ButtonContainer>
-        {months.map((month, index) => (
+        {MONTHS.map((month) => (
           <MonthButton
-            key={index}
-            $active={activeIndex === index ? true : false}
-            onClick={() => handleMonthClick(index)}
+            key={month}
+            $active={activeMonth === month ? true : false}
+            onClick={() => handleMonthClick(month)}
           >
             {" "}
             {month}월{" "}
