@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { removeExpense, updateExpenses } from "../redux/slices/expensesSlice";
+import { useRef } from "react";
 
 const ExpensesContain = styled.div`
   background-color: white;
@@ -65,32 +66,30 @@ const Expenses = () => {
 
   const targetExpense = expenses.find((expense) => expense.id === id);
 
-  // 인풋 박스 수정하는 로직1 useRef로 구현하기...
-  const [formData, setFormData] = useState({
-    id: targetExpense.id,
-    date: targetExpense.date,
-    item: targetExpense.item,
-    amount: targetExpense.amount,
-    content: targetExpense.content,
-  });
-
-  // 인풋 박스 수정하는 로직 1-1
-  const onChangeUpdateForm = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const dateInput = useRef();
+  const itemInput = useRef();
+  const amountInput = useRef();
+  const contentInput = useRef();
 
   // 인풋 박스 업데이트 하는 로직
   // setExpenses로 expense를 바꾼 다음에 홈으로 가서 바꾼 거 보여줘야 한다.
   const onSubmitUpdateForm = (event) => {
     event.preventDefault();
 
+    const updatedFormData = {
+      id: targetExpense.id,
+      date: dateInput.current.value,
+      item: itemInput.current.value,
+      amount: amountInput.current.value,
+      content: contentInput.current.value,
+    };
+
     // 유효성 검사1
     if (
-      formData.date == targetExpense.date &&
-      formData.item == targetExpense.item &&
-      formData.amount == targetExpense.amount &&
-      formData.content == targetExpense.content
+      updatedFormData.date == targetExpense.date &&
+      updatedFormData.item == targetExpense.item &&
+      updatedFormData.amount == targetExpense.amount &&
+      updatedFormData.content == targetExpense.content
     ) {
       alert("수정된 내용이 없습니다.");
       return;
@@ -98,16 +97,16 @@ const Expenses = () => {
 
     //유효성 검사2 아 한글 쓰고ㅓ 숫자 쓰고 그런 것도 장ㅂ아야 하는데 ㅜ
     if (
-      !formData.date ||
-      !formData.item ||
-      !formData.amount ||
-      !formData.content
+      !updatedFormData.date ||
+      !updatedFormData.item ||
+      !updatedFormData.amount ||
+      !updatedFormData.content
     ) {
       alert("내용을 모두 기재해주세요!");
       return;
     }
 
-    dispath(updateExpenses(formData));
+    dispath(updateExpenses(updatedFormData));
     alert("수정되었습니다.");
     navigate("/");
   };
@@ -132,38 +131,40 @@ const Expenses = () => {
           name="date"
           id="date"
           placeholder="YYYY-MM-DD"
-          value={formData.date}
-          onChange={onChangeUpdateForm}
+          defaultValue={targetExpense.date}
+          ref={dateInput}
         />
         <label htmlFor="text">항목:</label>
         <ExpensesUpdateInput
           type="text"
           placeholder="지출 항목"
           name="item"
-          value={formData.item}
-          onChange={onChangeUpdateForm}
+          defaultValue={targetExpense.item}
+          ref={itemInput}
         />
         <label htmlFor="number">금액:</label>
         <ExpensesUpdateInput
           type="number"
           placeholder="지출 금액"
           name="amount"
-          value={formData.amount}
-          onChange={onChangeUpdateForm}
+          defaultValue={targetExpense.amount}
+          ref={amountInput}
         />
         <label htmlFor="text">내용:</label>
         <ExpensesUpdateInput
           type="text"
           placeholder="지출 내용"
-          name="content"
-          value={formData.content}
-          onChange={onChangeUpdateForm}
+          ref={contentInput}
+          defaultValue={targetExpense.content}
         />
         <ButtonCotain>
           <Button type="submit" $backgroundColor="#39e11b">
             수정
           </Button>
-          <Button onClick={() => deleteExpense(id)} $backgroundColor="#e53b3b">
+          <Button
+            onClick={() => deleteExpense(targetExpense.id)}
+            $backgroundColor="#e53b3b"
+          >
             삭제
           </Button>
           <Button onClick={() => navigate("/")} $backgroundColor="#0060fac0">

@@ -73,10 +73,11 @@ const expensesSlice = createSlice({
   name: "expenses",
   initialState: initialExpenses,
   reducers: {
-    //이용한 함수
+    //추가
     addExpenses: (state, action) => {
       state.push(action.payload);
     },
+    //수정
     updateExpenses: (state, action) => {
       const nextExpense = action.payload;
       const index = state.findIndex((item) => item.id === nextExpense.id);
@@ -85,6 +86,7 @@ const expensesSlice = createSlice({
         state[index] = nextExpense;
       }
     },
+    //삭제
     removeExpense: (state, action) => {
       const id = action.payload;
       return state.filter((item) => item.id !== id);
