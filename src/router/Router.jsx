@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Sparta_financial-ledger/">
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
